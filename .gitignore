@@ -1,5 +1,31 @@
 Makefile
 CMakeLists.txt.user*
-build/
 ___*
 .tags
+
+# Build artifacts
+build/
+builds/
+build-*/
+fakeroot/
+tests-results/
+glfw/
+deb-output/
+
+# Mac Xcode and finder files
+*.DS_Store
+
+# CLion project files
+.idea/
+aws_sdk*.log
+cmake-build-*
+cmake-release-*
+
+# Visual Studio
+\.vscode/
+
+# Merge files
+*.orig
+
+# Swap files
+*.swp
