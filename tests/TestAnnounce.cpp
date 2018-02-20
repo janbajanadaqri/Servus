@@ -232,11 +232,12 @@ void test(const std::string& serviceType, const std::string& instanceName,
 }
 }
 
-BOOST_AUTO_TEST_CASE(test_jan)
+BOOST_AUTO_TEST_CASE(test_daqri)
 {
-    std::string serviceType = "_amService._tcp";
+    std::string serviceType = "_daqri-service._tcp";
     std::string UUID = std::to_string(servus::make_UUID());
-    std::string serviceName = "Daqri.AMViewer." + UUID;
+    std::string serviceName = "daqri.core." + UUID;
 
     test(serviceType, serviceName, UUID, 2366);
 }
+
