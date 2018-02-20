@@ -192,6 +192,7 @@ void test(const std::string& serviceType, const std::string& instanceName,
     BOOST_CHECK_EQUAL(service.get(hosts.front(), "UUID"), UUID);
     BOOST_CHECK_EQUAL(service.getKeys().size(), 3);
 
+    service.withdraw();
     std::cout << "End test" << std::endl;
 }
 }
