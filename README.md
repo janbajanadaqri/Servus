@@ -41,7 +41,7 @@ The following external, pre-installed optional dependencies are used:
 
 Building from source is as simple as:
 
-    git clone https://github.com/HBPVIS/Servus.git
+    git clone --recursive https://github.com/HBPVIS/Servus.git
     git submodule update --init
     mkdir Servus/build
     cd Servus/build
