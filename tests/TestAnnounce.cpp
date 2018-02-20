@@ -16,6 +16,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <chrono>
+#include <thread>
+
 #define BOOST_TEST_MODULE servus_servus
 #include <boost/test/unit_test.hpp>
 
@@ -84,6 +87,7 @@ void test(const std::string& serviceType, const std::string& instanceName,
     }
 
     servus::Servus service(tmpServiceType);
+    BOOST_CHECK(!service.isAnnounced());
     const servus::Servus::Result& result =
         service.announce(port, tmpInstanceName);
 
@@ -120,60 +124,18 @@ void test(const std::string& serviceType, const std::string& instanceName,
 
     BOOST_CHECK(service.announce(port, tmpInstanceName));
 
-    std::cout << "Starting discovery: " << result << std::endl;
+    BOOST_CHECK(service.isAnnounced());
 
-    int nLoops = _propagationTries;
-    while (--nLoops)
-    {
-        const servus::Strings& hosts =
-            service.discover(servus::Servus::IF_LOCAL, _propagationTime);
-        if (hosts.empty() && nLoops > 1)
-        {
-            if (getenv("TRAVIS"))
-            {
-                std::cerr << "Bailing, got no hosts on a Travis CI setup"
-                          << std::endl;
-                return;
-            }
-            continue;
-        }
+    std::this_thread::sleep_for(std::chrono::milliseconds(4000));
 
-        printHosts(service);
-
-        BOOST_REQUIRE_EQUAL(hosts.size(), 1);
-        BOOST_CHECK_EQUAL(hosts.front(), tmpInstanceName);
-        BOOST_CHECK(service.containsKey(hosts.front(), "priority"));
-        BOOST_CHECK_EQUAL(service.get(hosts.front(), "priority"), "1");
-        BOOST_CHECK_EQUAL(service.get("1", "priority"), std::string());
-        BOOST_CHECK_EQUAL(service.get(hosts.front(), "Test"), std::string());
-        break;
-    }
-
-    std::cout << "Starting discovery: " << result << std::endl;
-
+    std::cout << "Changing message ..." << std::endl;
     service.set("Test", "Daqri test");
 
-    nLoops = _propagationTries;
-    while (--nLoops)
-    {
-        const servus::Strings& hosts =
-            service.discover(servus::Servus::IF_LOCAL, _propagationTime);
-        const bool hasTest =
-            !hosts.empty() && service.containsKey(hosts.front(), "Test");
-        if ((hosts.empty() || !hasTest) && nLoops > 1)
-            continue;
+    std::this_thread::sleep_for(std::chrono::milliseconds(4000));
 
-        printHosts(service);
+    std::cout << "Browse results: " << std::endl;
 
-        BOOST_REQUIRE_EQUAL(hosts.size(), 1);
-        BOOST_CHECK_EQUAL(service.get(hosts.front(), "Test"), "Daqri test");
-        BOOST_CHECK_EQUAL(service.getKeys().size(), 3);
-        break;
-    }
-
-    std::cout << "Starting continuous browsing " << std::endl;
-
-    // continuous browse API
+    // continuous browse API to browse results.
     BOOST_CHECK(!service.isBrowsing());
     BOOST_CHECK(service.beginBrowsing(servus::Servus::IF_LOCAL));
     BOOST_CHECK(service.isBrowsing());
@@ -190,7 +152,9 @@ void test(const std::string& serviceType, const std::string& instanceName,
 
     printHosts(service);
 
+    int nLoops = _propagationTries;
     { // test updates during browsing
+
         servus::Servus service2(tmpServiceType);
         BOOST_CHECK(service2.announce(port + 1, std::to_string(port + 1)));
 
@@ -234,10 +198,11 @@ void test(const std::string& serviceType, const std::string& instanceName,
 
 BOOST_AUTO_TEST_CASE(test_daqri)
 {
+    std::cout << "Test Announce" << std::endl;
+
     std::string serviceType = "_daqri-service._tcp";
     std::string UUID = std::to_string(servus::make_UUID());
     std::string serviceName = "daqri.core." + UUID;
 
     test(serviceType, serviceName, UUID, 2366);
 }
-
