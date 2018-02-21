@@ -74,3 +74,13 @@ Building from source is as simple as:
     cmake -GNinja ..
     ninja
     ---windows Microsoft Visual Studio is recomanded.
+
+## Zeroconf Browsers
+
+Linux:
+
+* Avahi Discover
+
+MAC:
+
+    dns-sd -B _ssh._tcp .
