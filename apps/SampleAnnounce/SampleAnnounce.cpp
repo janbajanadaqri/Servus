@@ -133,6 +133,7 @@ void test(const std::string& serviceType, const std::string& instanceName,
     assert(hosts.size() == 1);
     assert(service.get(hosts.front(), "UUID") == UUID);
     assert(service.getKeys().size() == 3);
+    service.endBrowsing();
 
     printHosts(service);
 
