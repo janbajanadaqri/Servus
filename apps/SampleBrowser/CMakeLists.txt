@@ -16,19 +16,27 @@
 # along with this library; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#add_subdirectory(TestApp)
-add_subdirectory(SampleAnnounce)
-add_subdirectory(SampleBrowser)
+project(SampleBrowser)
 
-if(NOT TARGET ServusQt)
-  return()
-endif()
+set(TESETAPP_SOURCES SampleBrowser.cpp)
 
-set(SERVUSBROWSER_SOURCES servusBrowser.cpp)
-set(SERVUSBROWSER_LINK_LIBRARIES ServusQt Qt5::Widgets)
+# video plugin
+#link_directories("/home/dslocal/Work/CLion/Servus/cmake-build-debug/lib")
+#include_directories (/home/dslocal/Work/CLion/Servus/cmake-build-debug/include)
+#include_directories (/home/dslocal/Work/CLion/Servus/servus)
 
-if(APPLE)
-common_application(ServusBrowser GUI NOHELP)
-else()
-common_application(servusBrowser GUI NOHELP)
-endif()
+#link_directories("C:/Users/dslocal/Documents/Work/Git/Servus/cmake-build-debug/lib")
+#include_directories (C:/Users/dslocal/Documents/Work/Git/Servus/cmake-build-debug/include)
+#include_directories (C:/Users/dslocal/Documents/Work/Git/Servus/servus)
+
+add_executable(SampleBrowser
+        ${TESETAPP_SOURCES}
+        )
+
+#set_target_properties(SampleBrowser PROPERTIES
+#        CXX_STANDARD 14
+#        )
+
+target_link_libraries(SampleBrowser Servus)
+
+#common_application(SampleBrowser GUI NOHELP)

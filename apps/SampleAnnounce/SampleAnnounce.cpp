@@ -2,8 +2,8 @@
 #include <iostream>
 
 #include <cassert>
-#include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
+#include <thread>         // std::this_thread::sleep_for
 
 #include <servus/listener.h>
 #include <servus/servus.h>
@@ -34,9 +34,10 @@ namespace {
     {
         servus::Strings hosts = service.getInstances();
 
+        std::cout << "Service type: " << service.getName() << std::endl;
         for (std::string host : hosts)
         {
-            std::cout << "  discovered: " << host << std::endl;
+            std::cout << "  Service name: " << host << std::endl;
             for (std::string key : service.getKeys())
             {
                 std::cout << "  TXT: " << key << "=" << service.get(host, key)
@@ -69,9 +70,18 @@ namespace {
         }
 
         servus::Servus service(tmpServiceType);
+
+        service.set("priority", "1");
+        service.set("UUID", UUID);
+
         assert(!service.isAnnounced());
+        assert(service.get("priority") == "1");
+        assert(service.get("UUID") == UUID);
+        assert(service.get(UUID) == std::string());
+
         const servus::Servus::Result& result =
                 service.announce(port, tmpInstanceName);
+        assert(service.isAnnounced());
 
         assert(service.getName() == tmpServiceType);
 
@@ -97,20 +107,6 @@ namespace {
         assert(result.getString() == "success");
         assert(result.getCode() == 0);
         std::cout << "  announce: " << result << std::endl; // for coverage
-
-        //changing message
-        std::this_thread::sleep_for(std::chrono::milliseconds(4000));
-        std::cout << "Changing message ..." << std::endl;
-
-        service.withdraw();
-        service.set("priority", "1");
-        service.set("UUID", UUID);
-        assert(service.get("priority") == "1");
-        assert(service.get("UUID") == UUID);
-        assert(service.get(UUID) == std::string());
-
-        assert(service.announce(port, tmpInstanceName));
-        assert(service.isAnnounced());
 
         //changing message
         std::this_thread::sleep_for(std::chrono::milliseconds(4000));
