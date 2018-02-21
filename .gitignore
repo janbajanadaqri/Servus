@@ -23,6 +23,8 @@ cmake-build-*
 .vscode
 *.swp
 /.vs
+/CMakeSettings.json
+/CppProperties.json
 
 # Merge files
 *.orig
