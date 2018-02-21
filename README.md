@@ -79,7 +79,7 @@ Building from source is as simple as:
 
 Linux:
 
-* Avahi Discover
+* Avahi Zeroconf Browser
 
 MAC:
 
