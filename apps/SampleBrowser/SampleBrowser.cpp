@@ -38,7 +38,7 @@ void printHosts(const servus::Servus& service)
     for (std::string instance : instances)
     {
         std::cout << "  Service name: " << instance << std::endl;
-        std::cout << "  Host: " << service.getHost(instance) << std::endl;
+        std::cout << "  Address: " << service.getHost(instance) << std::endl;
 
         for (std::string key : service.getKeys(instance))
         {
