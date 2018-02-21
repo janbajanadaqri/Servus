@@ -45,5 +45,10 @@ Building from source is as simple as:
     git submodule update --init
     mkdir Servus/build
     cd Servus/build
+    ---linux makefile
+    cmake ..
+    make -j 8
+    ---linux Ninja
     cmake -GNinja ..
     ninja
+    ---windows use Microsoft Visual Studio.
