@@ -53,13 +53,13 @@ Windows:
 
 * Cmake: https://cmake.org/download/
 * Bonjour DNSSD SDK 3.0.: https://developer.apple.com/download/more/?=Bonjour%20SDK%20for%20Windows
-* Microsoft Visual Studio - recomanded to build with.
+* Microsoft Visual Studio - recomanded to build.
 
 MAC:
 
 * Cmake: brew install cmake
 * Xcode - Bonjour DNSSD SDK is coming with Xcode.
-* CLion can be used to build as well.
+* CLion can be used to build.
 
 Building from source is as simple as:
 
