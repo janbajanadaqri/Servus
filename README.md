@@ -52,7 +52,7 @@ Avahi SDK, client and utils
 Windows:
 
 * Cmake: https://cmake.org/download/
-* Bonjour DNSSD SDK for Windows 3.0.: https://developer.apple.com/download/more/?=Bonjour%20SDK%20for%20Windows
+* Bonjour DNSSD SDK 3.0.: https://developer.apple.com/download/more/?=Bonjour%20SDK%20for%20Windows
 * Microsoft Visual Studio.
 
 MAC:
