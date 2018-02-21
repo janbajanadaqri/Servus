@@ -43,11 +43,23 @@ The following external, pre-installed optional dependencies are used:
 
 Linux:
 
+Avahi SDK, client and utils
+
+    sudo apt-get install avahi-daemon avahi-discover avahi-utils libnss-mdns mdns-scan
+    sudo apt install libavahi-client-dev
+    sudo apt install libavahi-core-dev
+
 Windows:
 
 * Cmake: https://cmake.org/download/
-* Bonjour SDK for Windows 3.0.: https://developer.apple.com/download/more/?=Bonjour%20SDK%20for%20Windows
-* Microsoft Visual Studio.
+* Bonjour DNSSD SDK 3.0.: https://developer.apple.com/download/more/?=Bonjour%20SDK%20for%20Windows
+* Microsoft Visual Studio - recomanded to build.
+
+MAC:
+
+* Cmake: brew install cmake
+* Xcode - Bonjour DNSSD SDK is coming with Xcode.
+* CLion can be used to build.
 
 Building from source is as simple as:
 
@@ -55,10 +67,20 @@ Building from source is as simple as:
     git submodule update --init
     mkdir Servus/build
     cd Servus/build
-    ---linux makefile
+    ---linux and MAC makefile
     cmake ..
     make -j 8
-    ---linux Ninja
+    ---linux and MAC Ninja
     cmake -GNinja ..
     ninja
-    ---windows use Microsoft Visual Studio.
+    ---windows Microsoft Visual Studio is recomanded.
+
+## Zeroconf Browsers
+
+Linux:
+
+* Avahi Zeroconf Browser
+
+MAC:
+
+    dns-sd -B _ssh._tcp .
