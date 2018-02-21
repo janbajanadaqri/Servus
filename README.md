@@ -39,7 +39,7 @@ The following external, pre-installed optional dependencies are used:
 * Qt5 Core for servus::qt::ItemModel
 * Qt5 Widgets for servusBrowser tool
 
-Developement Dependencies
+## Developement Dependencies
 
 Linux:
 
