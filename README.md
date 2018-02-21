@@ -39,6 +39,16 @@ The following external, pre-installed optional dependencies are used:
 * Qt5 Core for servus::qt::ItemModel
 * Qt5 Widgets for servusBrowser tool
 
+Developement Dependencies
+
+Linux:
+
+Windows:
+
+* Cmake: https://cmake.org/download/
+* Bonjour SDK for Windows 3.0.: https://developer.apple.com/download/more/?=Bonjour%20SDK%20for%20Windows
+* Microsoft Visual Studio.
+
 Building from source is as simple as:
 
     git clone --recursive https://github.com/HBPVIS/Servus.git
