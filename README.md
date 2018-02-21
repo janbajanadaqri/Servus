@@ -51,7 +51,7 @@ Windows:
 
 Building from source is as simple as:
 
-    git clone --recursive https://github.com/HBPVIS/Servus.git
+    git clone --recursive https://github.com/janbajanadaqri/Servus.git
     git submodule update --init
     mkdir Servus/build
     cd Servus/build
