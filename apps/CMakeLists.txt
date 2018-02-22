@@ -16,7 +16,7 @@
 # along with this library; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-add_subdirectory(SampleBrowserAsyns)
+add_subdirectory(SampleBrowserAsync)
 add_subdirectory(SampleAnnounce)
 add_subdirectory(SampleBrowser)
 
