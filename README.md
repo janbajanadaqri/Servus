@@ -81,7 +81,9 @@ Linux:
 
 * Avahi Zeroconf Browser - desktop app
 
-      avahi-browse -d local _ssh._tcp --resolve
+or
+
+    avahi-browse -d local _ssh._tcp --resolve
 
 MAC:
 
