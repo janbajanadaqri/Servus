@@ -68,11 +68,13 @@ void test(const std::string& serviceType)
 
     servus::Servus service(tmpServiceType);
 
+#define CONTINUOUS_API
+#ifndef CONTINUOUS_API
     std::cout << "Discovering results: " << std::endl;
     int nLoops = _propagationTries;
     while (--nLoops)
     {
-        // discovery class use beginBrowsing, browse and endBrowsing inside.
+        // discovery class use beginBrowsing, browse and endBrowsing
         const servus::Strings& hosts =
             service.discover(servus::Servus::IF_ALL, _propagationTime);
 
@@ -94,6 +96,42 @@ void test(const std::string& serviceType)
         printHosts(service);
         // break;
     }
+#else
+    std::cout << "Browsing results: " << std::endl;
+    int nLoops = _propagationTries;
+    while (--nLoops)
+    {
+        // discovery class use beginBrowsing, browse and endBrowsing
+        assert(!service.isBrowsing());
+        assert(service.beginBrowsing(servus::Servus::IF_ALL));
+        assert(service.isBrowsing());
+
+        // BOOST_CHECK_EQUAL gives a link error for Result::PENDING
+        assert(service.beginBrowsing(servus::Servus::IF_ALL) ==
+               servus::Servus::Result::PENDING);
+        assert(service.isBrowsing());
+
+        assert(service.browse(_propagationTime) == service.browse(0));
+        service.endBrowsing();
+
+        servus::Strings hosts = service.getInstances();
+
+        const bool hasUUID =
+            !hosts.empty() && service.containsKey(hosts.front(), "UUID");
+
+        if ((hosts.empty() || !hasUUID))
+        {
+            std::cout << "... " << std::endl;
+            continue;
+        }
+
+        assert(hosts.size() == 1);
+
+        printHosts(service);
+        // break;
+    }
+
+#endif
 
     std::cout << "End test" << std::endl;
     std::cout.flush();
