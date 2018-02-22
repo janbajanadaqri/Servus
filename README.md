@@ -79,7 +79,11 @@ Building from source is as simple as:
 
 Linux:
 
-* Avahi Zeroconf Browser
+* Avahi Zeroconf Browser - desktop app
+
+or
+
+    avahi-browse -d local _ssh._tcp --resolve
 
 MAC:
 
