@@ -38,6 +38,7 @@
 #define _sleep ::sleep
 #endif
 
+static const std::string TEST_DAQRI_SERVICE{"_daqri-test._tcp"};
 static const int _propagationTime = 1000;
 static const int _propagationTries = 20;
 
@@ -201,9 +202,8 @@ BOOST_AUTO_TEST_CASE(test_daqri)
 {
     std::cout << "Test Announce" << std::endl;
 
-    std::string serviceType = "_daqri-service._tcp";
     std::string UUID = std::to_string(servus::make_UUID());
     std::string serviceName = "daqri.core." + UUID;
 
-    test(serviceType, serviceName, UUID, 2366);
+    test(TEST_DAQRI_SERVICE, serviceName, UUID, 2366);
 }

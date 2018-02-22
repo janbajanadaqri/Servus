@@ -2,8 +2,6 @@
 #include <iostream>
 
 #include <cassert>
-#include <chrono> // std::chrono::seconds
-#include <thread> // std::this_thread::sleep_for
 
 #include <servus/listener.h>
 #include <servus/servus.h>
@@ -21,11 +19,12 @@
 #define _sleep ::sleep
 #endif
 
-namespace
-{
+static const std::string TEST_DAQRI_SERVICE{"_daqri-test._tcp"};
 static const int _propagationTime = 1000;
 static const int _propagationTries = 50;
 
+namespace
+{
 void printHosts(const servus::Servus& service);
 void test(const std::string& serviceType, const std::string& instanceName,
           const std::string& UUID, uint32_t inPort);
@@ -73,6 +72,7 @@ void test(const std::string& serviceType)
     int nLoops = _propagationTries;
     while (--nLoops)
     {
+        // discovery class use beginBrowsing, browse and endBrowsing inside.
         const servus::Strings& hosts =
             service.discover(servus::Servus::IF_ALL, _propagationTime);
 
@@ -92,29 +92,8 @@ void test(const std::string& serviceType)
         assert(service.get("1", "priority").empty());
 
         printHosts(service);
-        //        break;
+        // break;
     }
-
-    // browse if data are in network.
-    //        std::this_thread::sleep_for(std::chrono::milliseconds(4000));
-    //        std::cout << "Browse results: " << std::endl;
-    //
-    //        // continuous browse API to browse results.
-    //        assert(!service.isBrowsing());
-    //        assert(service.beginBrowsing(servus::Servus::IF_LOCAL));
-    //        assert(service.isBrowsing());
-    //        // BOOST_CHECK_EQUAL gives a link error for Result::PENDING
-    //        assert(service.beginBrowsing(servus::Servus::IF_LOCAL) ==
-    //                    servus::Servus::Result::PENDING);
-    //        assert(service.isBrowsing());
-    //
-    //        assert(service.browse(_propagationTime) == service.browse(0));
-    //        servus::Strings hosts = service.getInstances();
-    //        assert(hosts.size() == 1);
-    //        assert(!service.get(hosts.front(), "UUID").empty());
-    //        assert(service.getKeys().size() == 3);
-    //
-    //        printHosts(service);
 
     std::cout << "End test" << std::endl;
     std::cout.flush();
@@ -124,10 +103,7 @@ void test(const std::string& serviceType)
 int main(int argc, char** argv)
 {
     std::cout << "Hello, this is sample browser application! \n" << std::endl;
-
-    std::string serviceType = "_daqri-service._tcp";
-
-    test(serviceType);
+    test(TEST_DAQRI_SERVICE);
 
 #ifdef _WIN32
     getchar();

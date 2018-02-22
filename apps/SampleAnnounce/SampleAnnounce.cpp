@@ -21,11 +21,12 @@
 #define _sleep ::sleep
 #endif
 
-namespace
-{
+static const std::string TEST_DAQRI_SERVICE{"_daqri-test._tcp"};
 static const int _propagationTime = 1000;
 static const int _propagationTries = 20;
 
+namespace
+{
 void printHosts(const servus::Servus& service);
 void test(const std::string& serviceType, const std::string& instanceName,
           const std::string& UUID, uint32_t inPort);
@@ -148,11 +149,10 @@ int main(int argc, char** argv)
     std::cout << "Hello, this is announce server sample application!"
               << std::endl;
 
-    std::string serviceType = "_daqri-service._tcp";
     std::string UUID = std::to_string(servus::make_UUID());
     std::string serviceName = "daqri.core." + UUID;
 
-    test(serviceType, serviceName, UUID, 2366);
+    test(TEST_DAQRI_SERVICE, serviceName, UUID, 2366);
 
 #ifdef _WIN32
     getchar();
