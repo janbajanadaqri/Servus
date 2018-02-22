@@ -19,8 +19,8 @@
 
 #include <iostream>
 
-#include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
+#include <thread>         // std::this_thread::sleep_for
 
 #include <servus/listener.h>
 #include <servus/servus.h>
