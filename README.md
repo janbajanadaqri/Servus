@@ -83,8 +83,8 @@ Linux:
 
 or
 
-    avahi-browse -d local _ssh._tcp --resolve
+    avahi-browse -d local _daqri-test._tcp --resolve
 
-MAC:
+MAC and Windows:
 
-    dns-sd -B _ssh._tcp .
+    dns-sd -B _daqri-test._tcp .
