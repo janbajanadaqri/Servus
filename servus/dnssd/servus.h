@@ -308,7 +308,11 @@ namespace servus
             {
                 ValueMap& values = _instanceMap[_browsedName];
                 values["servus_host"] = host;
-                values["servus_port"] = std::to_string(port);
+                
+				uint16_t bigEndianOrderPort = port;
+				bigEndianOrderPort = ((port & 0x00ff) << 8)
+					| ((port & 0xff00) >> 8);
+				values["servus_port"] = std::to_string(bigEndianOrderPort);
 
                 char key[256] = {0};
                 const char* value = 0;

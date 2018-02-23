@@ -68,7 +68,7 @@ void test(const std::string& serviceType)
 
     servus::Servus service(tmpServiceType);
 
-#define CONTINUOUS_API
+//#define CONTINUOUS_API
 #ifndef CONTINUOUS_API
     std::cout << "Discovering results: " << std::endl;
     int nLoops = _propagationTries;
