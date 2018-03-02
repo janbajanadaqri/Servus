@@ -349,7 +349,7 @@ namespace servus
 
                         ValueMap& values = i->second;
                         values["servus_host"] = host;
-                        values["servus_port"] = std::to_string(port);
+                        values["servus_port"] = std::to_string(unsigned(port));
 
                         for (; txt; txt = txt->next)
                         {
