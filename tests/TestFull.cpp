@@ -48,7 +48,7 @@ void printHosts(const servus::Servus& service)
     for (std::string host : hosts)
     {
         std::cout << "  discovered: " << host << std::endl;
-        for (std::string key : service.getKeys())
+        for (std::string key : service.getKeys(host))
         {
             std::cout << "  TXT: " << key << "=" << service.get(host, key)
                       << std::endl;

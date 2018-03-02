@@ -341,9 +341,16 @@ namespace servus
 
                     case AVAHI_RESOLVER_FOUND:
                     {
-                        ValueMap& values = _instanceMap[name];
+
+                        auto i = _instanceMap.find(name);
+                        if (i == _instanceMap.end()){
+                            i = _instanceMap.emplace(std::make_pair(name, ValueMap())).first;
+                        }
+
+                        ValueMap& values = i->second;
                         values["servus_host"] = host;
                         values["servus_port"] = std::to_string(port);
+
                         for (; txt; txt = txt->next)
                         {
                             const std::string entry(reinterpret_cast<const char*>(
