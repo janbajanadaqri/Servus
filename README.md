@@ -88,4 +88,4 @@ or
 MAC and Windows:
 
     dns-sd -B _daqri-test._tcp .
-    dns-sd -R JanBajana-test _daqri-amcore local 4710 []
+    dns-sd -R JanBajana-test _daqri-test local 4710 []
